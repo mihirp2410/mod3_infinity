@@ -7,9 +7,10 @@
 <div class="container">
  	<form action = "MainServlet" method="get">
      <h1>Chose payment type to view the options</h1><br><br>
-     <input type="submit" name = "billing_type" value = "postpaid">
+      <input type="hidden" name="operation" value="bill">
+     <input type="submit" name = "billing" value = "postpaid">
      <br><br>
-     <input type="submit" name = "billing_type" value = "prepaid">
+     <input type="submit" name = "billing" value = "prepaid">
      </form>  
     </div>
  

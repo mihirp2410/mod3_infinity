@@ -1,7 +1,10 @@
- package servlets;
+package servlets;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-
+import logic.*;
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,14 +18,29 @@ import javax.servlet.http.HttpSession;
 public  class MainServlet extends HttpServlet implements Servlet{
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		 response.setContentType("text/html");
+		response.setContentType("text/html");
+		PrintWriter out=response.getWriter();
+	    String action = request.getParameter("operation");
 		HttpSession sess = request.getSession();
-		String choose=request.getParameter("billing_type");
-		getServletContext().setAttribute("sess", sess);
-		sess.setAttribute("choose", choose);
-		getServletContext().getRequestDispatcher("/stbfile.jsp").include(request,response);
-		//out.print("You chose the billing type : " + request.getParameter("billing_type"));
+		System.out.println(action);
+		switch(action) {
+		case "bill":
+			String choose=request.getParameter("billing");
+			System.out.println(choose);
+			try {
+				ResultSet rs= stb_type.stb(choose);
+				getServletContext().setAttribute("sess", sess);
+				sess.setAttribute("rs", rs);
+				getServletContext().getRequestDispatcher("/stbfile.jsp").include(request,response);
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		
-	}
+		
+		}
+	
 
 }
