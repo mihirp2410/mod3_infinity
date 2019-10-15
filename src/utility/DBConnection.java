@@ -15,7 +15,9 @@ public class DBConnection {
 		{
 			Class.forName(driverinfo);
 			Connection c = DriverManager.getConnection(DB_URL, "system", "12345");
+			System.out.println("connection established");
 			statement = c.prepareStatement(query);
+			System.out.println("pst created");
 			return statement;
 		}
 		catch(Exception e) 
