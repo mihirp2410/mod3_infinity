@@ -1,7 +1,5 @@
 <%@ page import = "java.io.*,java.util.*" %>
 <%@ page import="java.sql.*" %>
-<%@ page import="java.sql.*" %>
-<%@ page import="Logic.*" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -11,26 +9,37 @@
 <title>second page</title>
 </head>
 <body>
-	<%
-		DBConnection db = new DBConnection();
-		String query = "select * from STB_Package";
-		 PreparedStatement st = db.connect(query);
-		ResultSet rs = null;
-		//ResultSet rs1 = null;
-
-		//Class.forName(driverinfo);
-		//System.out.println("Driver info registered successsfully");
-
-		//con = DriverManager.getConnection(url, uname, pass);
-		//System.out.println("established connection successfully");
-
-		//st = con.createStatement();
-		//System.out.println("connection created");
-
-		rs = st.executeQuery();
-		System.out.println("query successfully executed");
-	%>
-	<form name="frm1" action="sess" method="get">
+<%
+String driverinfo="oracle.jdbc.driver.OracleDriver";
+      String url="jdbc:oracle:thin:@localhost:1521:xe";
+      String uname="system";
+      String pass="12345";
+      String query="select * from STB_Package"; 
+      
+       Connection con=null;
+  	 Statement st=null;
+  	 ResultSet rs=null;
+  	 ResultSet rs1=null;
+      
+      Class.forName(driverinfo);
+      System.out.println("Driver info registered successsfully");
+      
+      con=DriverManager.getConnection(url,uname,pass);
+      System.out.println("established connection successfully"); 
+      
+      st=con.createStatement();
+      System.out.println("connection created");
+      
+      rs=st.executeQuery(query);
+      System.out.println("query successfully executed");
+      
+      HttpSession newsess= (HttpSession)getServletContext().getAttribute("sess");
+		
+		String choose = (String) newsess.getAttribute("choose");
+     System.out.println(choose);
+      
+      %>
+<form name="frm1" action="sess" method="get">
 <h1> Select your STB</h1>
 <label>Customer name:</label><br><br>
 <table>
@@ -49,7 +58,9 @@
                 </tr>
                <%
       while (rs.next()) {
-        
+    	  String s=rs.getString("STB_BILLING_TYPE");
+    	  if(s.equals(choose)){
+    	  
         double total_amount=(rs.getInt("STB_PRICE")+rs.getInt("STB_INSTALLATION_CHARGE")+rs.getInt("STB_REFUNDABLE_DEPOSIT")-rs.getInt("STB_DISCOUNT"));
         double tax= 0.12*total_amount;
         double amount_payable=tax+total_amount;
@@ -67,6 +78,7 @@
             <td><%= 00 %></td>
           </tr>
   <%
+      }
       }
   %>
             

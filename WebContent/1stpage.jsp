@@ -4,13 +4,12 @@
 <title>first page</title>
 </head>
 <body>
-<!-- <script type = "text/javascript" src="js/billingType.js"> </script> -->
 <div class="container">
  	<form action = "MainServlet" method="get">
      <h1>Chose payment type to view the options</h1><br><br>
-     <input type="submit" name = "billing_type" value = "Postpaid">
+     <input type="submit" name = "billing_type" value = "postpaid">
      <br><br>
-     <input type="submit" name = "billing_type" value = "Prepaid">
+     <input type="submit" name = "billing_type" value = "prepaid">
      </form>  
     </div>
  

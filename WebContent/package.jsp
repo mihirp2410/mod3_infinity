@@ -1,6 +1,5 @@
 <%@ page import = "java.io.*,java.util.*" %>
 <%@ page import="java.sql.*" %>
-<%@ page import="Logic.*" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -11,13 +10,28 @@
 </head>
 <body>
 <%
-	DBConnection db = new DBConnection();
+String driverinfo="oracle.jdbc.driver.OracleDriver";
+      String url="jdbc:oracle:thin:@localhost:1521:xe";
+      String uname="system";
+      String pass="12345";
       String query="select * from STB"; 
       String query1="select * from brands";
-   
-      PreparedStatement st = db.connect(query);
       
-    	ResultSet  rs=st.executeQuery();
+       Connection con=null;
+  	 Statement st=null;
+  	 ResultSet rs=null;
+  	 ResultSet rs1=null;
+      
+      Class.forName(driverinfo);
+      System.out.println("Driver info registered successsfully");
+      
+      con=DriverManager.getConnection(url,uname,pass);
+      System.out.println("established connection successfully"); 
+      
+      st=con.createStatement();
+      System.out.println("connection created");
+      
+      rs=st.executeQuery(query);
       System.out.println("query successfully executed");
       %>
 <label>Customer name:</label>
@@ -45,7 +59,7 @@
                     <th>Total Amount</th>
                     <th> Select</th>
                 </tr>
-              
+            
             </table>
             
 </body>
