@@ -9,31 +9,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%
-String driverinfo="oracle.jdbc.driver.OracleDriver";
-      String url="jdbc:oracle:thin:@localhost:1521:xe";
-      String uname="system";
-      String pass="12345";
-      String query="select * from STB"; 
-      String query1="select * from brands";
-      
-       Connection con=null;
-  	 Statement st=null;
-  	 ResultSet rs=null;
-  	 ResultSet rs1=null;
-      
-      Class.forName(driverinfo);
-      System.out.println("Driver info registered successsfully");
-      
-      con=DriverManager.getConnection(url,uname,pass);
-      System.out.println("established connection successfully"); 
-      
-      st=con.createStatement();
-      System.out.println("connection created");
-      
-      rs=st.executeQuery(query);
-      System.out.println("query successfully executed");
-      %>
 <label>Customer name:</label>
   <table>
 <caption>Package details</caption>
