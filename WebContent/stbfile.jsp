@@ -26,18 +26,18 @@
                     <th>Amount Payable </th>
                     <th>status</th>
                 </tr>
-               <%
-               HttpSession newsess= (HttpSession)getServletContext().getAttribute("sess");
-       		
-       		ResultSet rs = (ResultSet) newsess.getAttribute("rs");
-      while (rs.next()) {
+			<%
+				HttpSession newsess = (HttpSession) getServletContext().getAttribute("sess");
 
-    	  
-        double total_amount=(rs.getInt("STB_PRICE")+rs.getInt("STB_INSTALLATION_CHARGE")+rs.getInt("STB_REFUNDABLE_DEPOSIT")-rs.getInt("STB_DISCOUNT"));
-        double tax= 0.12*total_amount;
-        double amount_payable=tax+total_amount;
-  %>
-          <tr>
+				ResultSet rs = (ResultSet) newsess.getAttribute("rs");
+				while (rs.next()) {
+
+					double total_amount = (rs.getInt("STB_PRICE") + rs.getInt("STB_INSTALLATION_CHARGE")
+							+ rs.getInt("STB_REFUNDABLE_DEPOSIT") - rs.getInt("STB_DISCOUNT"));
+					double tax = 0.12 * total_amount;
+					double amount_payable = tax + total_amount;
+			%>
+			<tr>
             <td><input type=radio name="stb" value=<%= rs.getString("STB_TYPE") %>><%= rs.getString("STB_TYPE") %></td>
             <td><%= 00 %></td>
             <td><%= 00 %></td>

@@ -33,11 +33,17 @@ public class Postbill {
 	}
 	
 	
-	public double bill_amount() 
+	public double bill_amount(double stb_cost) 
 	{
-		
+		double amount = stb_cost+tax();
+		return amount;
 	}
 	
+	public double tax() 
+	{
+		double total = package_cost * tax;
+		return total;
+	}
 	
 	
 	
