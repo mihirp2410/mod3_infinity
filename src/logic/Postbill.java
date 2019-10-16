@@ -1,6 +1,11 @@
 package logic;
 
 import java.util.*;
+import java.sql.*;
+import java.sql.Date;
+import java.text.DateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 public class Postbill {
 	private String c_name;
@@ -10,8 +15,11 @@ public class Postbill {
 	private double other_charge;
 	private final double tax = 0.12;
 	private double total;
-	private Date billDate;
+	
+	long millis=System.currentTimeMillis(); 
+	private Date billDate;//= millis; ;
 	private Date paydate;
+
 	
 	
 	public Postbill() 
@@ -33,19 +41,35 @@ public class Postbill {
 	}
 	
 	
-	public double bill_amount(double stb_cost) 
+	public double bill_amount(double stb_cost, Date p_date) 
 	{
-		double amount = stb_cost+tax();
-		return amount;
+		double amount = stb_cost+pkg_tax();
+		double prorated  = (daysBetween(billDate, p_date))*amount/30;	
+		return prorated;
+		
 	}
 	
-	public double tax() 
+	public double pkg_tax() 
 	{
 		double total = package_cost * tax;
 		return total;
 	}
 	
+	public Date pay_date() 
+	{
+		paydate = new Date (millis);
+		Calendar c = Calendar.getInstance(); 
+		c.setTime(paydate); 
+		c.add(Calendar.DATE, 15);
+		paydate =  (Date) c.getTime();
+		System.out.println(paydate);
+		return paydate;
+	}
 	
+	 private static long daysBetween(Date one, Date two) {
+	        long difference =  (one.getTime()-two.getTime())/86400000;
+	        return Math.abs(difference);
+	    }
 	
 	
 	
@@ -94,10 +118,10 @@ public class Postbill {
 	public void setTotal(double total) {
 		this.total = total;
 	}
-	public Date getBillDate() {
+	public long getBillDate() {
 		return billDate;
 	}
-	public void setBillDate(Date billDate) {
+	public void setBillDate(long billDate) {
 		this.billDate = billDate;
 	}
 	public Date getPaydate() {
