@@ -8,9 +8,9 @@
  	<form action = "MainServlet" method="get">
      <h1>Chose payment type to view the options</h1><br><br>
       <input type="hidden" name="operation" value="bill">
-     <input type="submit" name = "billing" value = "postpaid">
+     <input type="submit" name = "billing" value = "Postpaid">
      <br><br>
-     <input type="submit" name = "billing" value = "prepaid">
+     <input type="submit" name = "billing" value = "Prepaid">
      </form>  
     </div>
  
