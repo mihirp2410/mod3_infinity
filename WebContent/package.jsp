@@ -1,5 +1,6 @@
 <%@ page import="java.io.*,java.util.*"%>
 <%@ page import="java.sql.*"%>
+<%@ page import="logic.*" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -14,12 +15,17 @@
 	<%
 		HttpSession newsess = (HttpSession) getServletContext().getAttribute("sess");
 
-		ResultSet[] rs = (ResultSet[]) newsess.getAttribute("rst");
-		ArrayList<String> al = new ArrayList<String>();
+		ResultSet rs = (ResultSet) newsess.getAttribute("package_resultset");
+		ArrayList<Channel> alc = (ArrayList<Channel>) newsess.getAttribute("channel_list");
 	%>
 	
 
-	<table>
+	
+       <%
+       while (rs.next()){
+    	  
+       %>
+       <table>
 		<caption>Package details</caption>
 		<tr id="heading">
 			<th>Package name</th>
@@ -29,25 +35,19 @@
 			<th>Available From</th>
 			<th>Available To</th>
 		</tr>
-       <%
-       while (rs[0].next()){
-    	  
-       %>
 
 		<tr>
 			<td><input type="checkbox" name="select"
-				value=<%=rs[0].getString("PKG_NAME")%>> <%=rs[0].getString("PKG_NAME")%>
+				value=<%=rs.getString("PKG_NAME")%>> <%=rs.getString("PKG_NAME")%>
 			</td>
-			<td><%=rs[0].getString("PKG_CATEGORY")%></td>
-			<td><%=rs[0].getString("PKG_TRANSMISSION_TYPE")%></td>
-			<td><%=rs[0].getInt("PKG_COST")%></td>
-			<td><%=rs[0].getDate("PKG_AVAILABLE_FROM")%></td>
-			<td><%=rs[0].getDate("PKG_AVAILABLE_TO")%></td>
+			<td><%=rs.getString("PKG_CATEGORY")%></td>
+			<td><%=rs.getString("PKG_TRANSMISSION_TYPE")%></td>
+			<td><%=rs.getInt("PKG_COST")%></td>
+			<td><%=rs.getDate("PKG_AVAILABLE_FROM")%></td>
+			<td><%=rs.getDate("PKG_AVAILABLE_TO")%></td>
 		</tr>
 	
-   <%
-       }
-   %>
+   
    </table>
    
    <table>
@@ -57,26 +57,28 @@
 				<th>Channel Charge</th>
 				<th>Package Name</th>
 			</tr>
-			<% while(rs[1].next()){
-				/* if(rs[0].getInt("PKG_ID")==rs[1].getInt("PKG_ID")){
-					rs[1].beforeFirst(); */
+			<% for(Channel c : alc){
+			   	if(c.getPackage_id()==rs.getInt("PKG_ID")){
+					
 			%>
 			<tr>
 				<td><input type="checkbox" name="select1"
-					value=<%=rs[1].getString("CH_NAME")%>><%=rs[1].getString("CH_NAME")%></td>
-				<td><%=rs[1].getInt("CH_CHARGE")%></td>
-				<td><%=rs[1].getString("PKG_NAME") %></td>
+					value=<%=c.getChannel_name()%>><%=c.getChannel_name()%></td>
+				<td><%=c.getChannel_charge()%></td>
+				<td><%=c.getPackage_id() %></td>
 			</tr>
-	
+				<%
+			   		}
+				%>
 			 
-          <%
-				
-				
-			
-		}
+          <%			
+			}
           %>
-	</table>
+       <%
+		}
+       %>
 	
+	</table>
 
 
 </body>
