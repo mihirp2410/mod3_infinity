@@ -7,7 +7,12 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="css/Style.css"/>
+<title>Package</title>
+<div class = "header">
+<h1>Infinity DTH Services <h1>
+</div>
+</head>
 </head>
 <form action = "MainServlet" method="get">
 <body>
@@ -105,5 +110,9 @@
            
      
     </form> 
+    <footer style="color:#FFFFFF;padding:40px;">
+  <p>Copyright by Infinity DTH Services</p>
+  <p>Contact information: <a href="mailto:someone@example.com">customercare@infinitydth.com</a>.</p>
+</footer>
 </body>
 </html>

@@ -6,11 +6,16 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
+<link rel="stylesheet" type="text/css" href="css/Style.css"/>
 <title>second page</title>
+<div class = "header">
+<h1>Infinity DTH Services <h1>
+</div>
+</head>
 </head>
 <body>
 	<form name="frm1" action="MainServlet" method="get">
-		<h1>Select your STB</h1>
+		<h2>Select your STB</h2>
 		<label>Customer name:</label><br>
 		<br>
 		<table>
@@ -63,5 +68,10 @@
        <input type="hidden" name="operation" value="package">
 		<button type="submit"  >submit</button>
 	</form>
+	
+	<footer style="color:#FFFFFF;padding:40px;">
+  <p>Copyright by Infinity DTH Services</p>
+  <p>Contact information: <a href="mailto:someone@example.com">customercare@infinitydth.com</a>.</p>
+</footer>
 </body>
 </html>
