@@ -68,7 +68,7 @@
 			<tr>
 				
 				<td><input type="checkbox" name="select1" 
-					id="<%=c.getChannel_name()%>" value="<%=c.getChannel_charge()%>" onchange="doalert(this)"><%=c.getChannel_name()%></td>
+					id="<%=c.getChannel_name()%>" value="<%=c.getChannel_charge()%>" onchange="doalert(this,'<%=i%>')"><%=c.getChannel_name()%></td>
 		
 				<td><%=c.getChannel_charge()%></td>
 				<td><%=c.getPackage_id() %></td>
@@ -86,7 +86,7 @@
 			}
           %>
           </table>
-          <p id ="<%=i%>>"> Total Package Cost = </p>
+          <p id ="<%=i%>"> Total Package Cost = </p>
           
        <%
 		}

@@ -1,10 +1,10 @@
-function doalert(checkedelem){
+function doalert(checkedelem,i){
 	
 	//document.body.innerHTML = document.body.innerHTML + "bla bla";
 	//var x = document.getElementById("channel");
 	//x.style.color = "red";
 	
 	var x = checkedelem.value;
-	//alert(x);
-	document.getElementById("total_package_cost").innerHTML+= x + "+";
+	//alert(i);
+	document.getElementById(i).innerHTML+= x + "+";
 }
