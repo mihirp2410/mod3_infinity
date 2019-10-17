@@ -8,22 +8,22 @@
 <meta charset="ISO-8859-1">
 <link rel="stylesheet" type="text/css" href="css/Style.css"/>
 <title>second page</title>
-<div class = "header">
-<h1>Infinity DTH Services <h1>
-</div>
-</head>
 </head>
 <body>
 	<form name="frm1" action="MainServlet" method="get">
-		<h2>Select your STB</h2>
-		<label>Customer name:</label><br>
+		<h1>Select your STB</h1>
+		<%HttpSession newsess = (HttpSession) getServletContext().getAttribute("sess");
+
+		ResultSet rs = (ResultSet) newsess.getAttribute("rs");
+		String username=(String) newsess.getAttribute("uname");
+		%>
+		<label>Customer name:<%=username %></label><br>
 		<br>
 		<table>
 			<caption>SET TOP BOX TYPES</caption>
 			<tr id="heading">
 				<th>STB Type</th>
-				<th>STB MAC ID</th>
-				<th>STB Serial number</th>
+				<th>Dimensions</th>
 				<th>STB price</th>
 				<th>Installation Charge</th>
 				<th>Deposit</th>
@@ -33,9 +33,7 @@
 				
 			</tr>
 			<%
-				HttpSession newsess = (HttpSession) getServletContext().getAttribute("sess");
-
-				ResultSet rs = (ResultSet) newsess.getAttribute("rs");
+				
 				while (rs.next()) {
 
 					double total_amount = (rs.getInt("STB_PRICE") + rs.getInt("STB_INSTALLATION_CHARGE")
@@ -45,9 +43,8 @@
 			%>
 			<tr>
 				<td><input type=radio name="stb"
-					value=<%= rs.getString("STB_TYPE") %>><%= rs.getString("STB_TYPE") %></td>
-				<td><%= 00 %></td>
-				<td><%= 00 %></td>
+					value=<%= rs.getString("STB_ID") %>><%= rs.getString("STB_TYPE") %></td>
+				<td><%= rs.getString("STB_DIMENSIONS")%></td>
 				<td><%= rs.getInt("STB_PRICE") %></td>
 				<td><%= rs.getInt("STB_INSTALLATION_CHARGE") %></td>
 				<td><%= rs.getInt("STB_REFUNDABLE_DEPOSIT") %></td>
@@ -68,10 +65,5 @@
        <input type="hidden" name="operation" value="package">
 		<button type="submit"  >submit</button>
 	</form>
-	
-	<footer style="color:#FFFFFF;padding:40px;">
-  <p>Copyright by Infinity DTH Services</p>
-  <p>Contact information: <a href="mailto:someone@example.com">customercare@infinitydth.com</a>.</p>
-</footer>
 </body>
 </html>

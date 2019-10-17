@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,9 +18,12 @@
 
 <br><br>
 
-<form style="color: #FFFFFF ;" name="myform" action="1stpage.jsp">
-Username <input type ="text" name ="uname" placeholder="Enter Username" required><br><br>
-Password  <input type ="password" name="pwd" placeholder="Enter Password" required><br><br><br><br>
+<form style="color: #FFFFFF ;" name="myform" action="MainServlet" method="get">
+<label>Username:</label>
+<input type ="text" name ="uname" placeholder="Enter Username" required><br><br>
+<label>Password:</label>
+<input type ="password" name="pwd" placeholder="Enter Password" required><br><br><br><br>
+<input type = "hidden" name="operation" value="login">
 <button input type="submit"> LOGIN</button>
 
 </form>

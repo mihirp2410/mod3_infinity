@@ -3,7 +3,7 @@ function totalIt() {
   var total = 0;
   for (var i = 0; i < input.length; i++) {
     if (input[i].checked) {
-      total += parseFloat(input[i].value);
+      total += parseFloat(input[i].id);
     }
   }
   document.getElementById("total").value = "$" + total.toFixed(2);
@@ -15,7 +15,7 @@ function totaltt() {
 	  var total = 0;
 	  for (var i = 0; i < input.length; i++) {
 	    if (input[i].checked) {
-	      total += parseFloat(input[i].value);
+	      total += parseFloat(input[i].id);
 	    }
 	  }
 	  document.getElementById("totalp").value = "$" + total.toFixed(2);
@@ -27,7 +27,7 @@ function totalamt(){
 	  var total = 0;
 	  for (var i = 0; i < input.length; i++) {
 	    if (input[i].checked) {
-	      total += parseFloat(input[i].value);
+	      total += parseFloat(input[i].id);
 	    }
 	  }
 	  document.getElementById("totalamt").value = "$" + total.toFixed(2);

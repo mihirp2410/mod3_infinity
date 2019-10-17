@@ -1,6 +1,9 @@
 <%@ page import="java.io.*,java.util.*"%>
-<%@ page import="java.sql.*"%>
+<%@ page import="java.sql.ResultSet" %>
+<%@ page import = "javax.servlet.*,java.text.*" %>
 <%@ page import="logic.*" %>
+<%@ page import="servlets.*" %>
+<%@ page import="utility.*" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -8,24 +11,21 @@
 <head>
 <meta charset="ISO-8859-1">
 <link rel="stylesheet" type="text/css" href="css/Style.css"/>
-<title>Package</title>
-<div class = "header">
-<h1>Infinity DTH Services <h1>
-</div>
-</head>
+<title>Insert title here</title>
 </head>
 <form action = "MainServlet" method="get">
 <body>
  <script src="js/cost.js"></script>
 
-	<label>Customer name:</label>
+	
 	<%
 		HttpSession newsess = (HttpSession) getServletContext().getAttribute("sess");
-
+        
 		ResultSet rs = (ResultSet) newsess.getAttribute("package_resultset");
+		String username=(String) newsess.getAttribute("uname");
 		ArrayList<Channel> alc = (ArrayList<Channel>) newsess.getAttribute("channel_list");
 	%>
-	
+	<label>Customer name:<%=username %></label>
 		<% int i = 0;%>
 	
        <%
@@ -45,8 +45,8 @@
 		</tr>
 
 		<tr>
-			<td><input type="checkbox" name="select" class="ss"
-				value=<%=rs.getString("PKG_COST")%> onclick="totaltt()"/> <%=rs.getString("PKG_NAME")%>
+			<td><input type="checkbox" name="select" class="ss"  id=<%=rs.getInt("PKG_COST")%>
+				value=<%=rs.getInt("PKG_ID")%> onclick="totaltt()"/> <%=rs.getString("PKG_NAME")%>
 			</td>
 			<td><%=rs.getString("PKG_CATEGORY")%></td>
 			<td><%=rs.getString("PKG_TRANSMISSION_TYPE")%></td>
@@ -73,8 +73,8 @@
 			
 			<tr>
 				
-				<td><input type="checkbox" name="select1" class="ss"
-					 value="<%=c.getChannel_charge()%>" onclick="totalIt()"/><%=c.getChannel_name()%></td>
+				<td><input type="checkbox" name="select1" class="ss" value="<%=c.getChannel_name()%>"
+					 id="<%=c.getChannel_charge()%>" onclick="totalIt()"/><%=c.getChannel_name()%></td>
 		
 				<td><%=c.getChannel_charge()%></td>
 				<td><%=c.getPackage_id() %></td>
@@ -96,23 +96,24 @@
           
           
        <%
-		}
+       }
+       Date dNow = new Date();
+       SimpleDateFormat ft = new SimpleDateFormat ("E yyyy.MM.dd 'at' hh:mm:ss a zzz");
+     
        %>
 		
 	</table>
-
+  
     <label> Total channel Cost = </label>
-          <input name="tcc" value="$0.00" readonly="readonly" type="text" id="total"/><br><br>
+          <input  value="$0.00" readonly="readonly" type="text" id="total"/><br><br>
      <label>Total package Cost =</label>   
            <input value="$0.00" readonly="readonly" type="text" id="totalp"/> <br><br> 
       <label>Total amount =</label>
            <input value="$0.00" readonly="readonly" type="text" id="totalamt"/>
-           
+       Purchased date: <input name="purchasedate"  value="<%=ft.format(dNow)%>"  /> 
+      <input type="hidden" name="operation" value="packageselection">
+		<button type="submit"  >submit</button>
      
     </form> 
-    <footer style="color:#FFFFFF;padding:40px;">
-  <p>Copyright by Infinity DTH Services</p>
-  <p>Contact information: <a href="mailto:someone@example.com">customercare@infinitydth.com</a>.</p>
-</footer>
 </body>
 </html>
