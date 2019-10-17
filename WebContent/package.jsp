@@ -9,6 +9,7 @@
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 </head>
+<form action = "MainServlet" method="get">
 <body>
  <script src="js/cost.js"></script>
 
@@ -39,8 +40,8 @@
 		</tr>
 
 		<tr>
-			<td><input type="checkbox" name="select"
-				value=<%=rs.getString("PKG_NAME")%>> <%=rs.getString("PKG_NAME")%>
+			<td><input type="checkbox" name="select" class="ss"
+				value=<%=rs.getString("PKG_COST")%> onclick="totaltt()"/> <%=rs.getString("PKG_NAME")%>
 			</td>
 			<td><%=rs.getString("PKG_CATEGORY")%></td>
 			<td><%=rs.getString("PKG_TRANSMISSION_TYPE")%></td>
@@ -67,8 +68,8 @@
 			
 			<tr>
 				
-				<td><input type="checkbox" name="select1" 
-					id="<%=c.getChannel_name()%>" value="<%=c.getChannel_charge()%>" onchange="doalert(this,'<%=i%>')"><%=c.getChannel_name()%></td>
+				<td><input type="checkbox" name="select1" class="ss"
+					 value="<%=c.getChannel_charge()%>" onclick="totalIt()"/><%=c.getChannel_name()%></td>
 		
 				<td><%=c.getChannel_charge()%></td>
 				<td><%=c.getPackage_id() %></td>
@@ -86,7 +87,8 @@
 			}
           %>
           </table>
-          <p id ="<%=i%>"> Total Package Cost = </p>
+        
+          
           
        <%
 		}
@@ -94,6 +96,14 @@
 		
 	</table>
 
-
+    <label> Total channel Cost = </label>
+          <input name="tcc" value="$0.00" readonly="readonly" type="text" id="total"/><br><br>
+     <label>Total package Cost =</label>   
+           <input value="$0.00" readonly="readonly" type="text" id="totalp"/> <br><br> 
+      <label>Total amount =</label>
+           <input value="$0.00" readonly="readonly" type="text" id="totalamt"/>
+           
+     
+    </form> 
 </body>
 </html>
