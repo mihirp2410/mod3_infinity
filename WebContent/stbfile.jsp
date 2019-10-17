@@ -25,7 +25,7 @@
 				<th>Discount</th>
 				<th>Tax</th>
 				<th>Amount Payable</th>
-				<th>status</th>
+				
 			</tr>
 			<%
 				HttpSession newsess = (HttpSession) getServletContext().getAttribute("sess");
@@ -49,7 +49,7 @@
 				<td><%= rs.getInt("STB_DISCOUNT") %></td>
 				<td><%= tax %></td>
 				<td><%= amount_payable %></td>
-				<td><%= 00 %></td>
+				
 			</tr>
 			<%
       }

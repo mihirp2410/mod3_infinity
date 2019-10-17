@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import logic.*;
 import javax.servlet.Servlet;
@@ -40,14 +41,23 @@ public  class MainServlet extends HttpServlet implements Servlet{
 			break;
 		case "package":
 			try {
-				ResultSet[] rst=Package_type.getPackage();
+				ResultSet rst=Package_type.getPackage();
 				getServletContext().setAttribute("sess", sess);
-				sess.setAttribute("rst", rst);
+				sess.setAttribute("package_resultset", rst);
+				//getServletContext().getRequestDispatcher("/package.jsp").include(request,response);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				ArrayList<Channel> alc = Channel_type.getChannels();
+				sess.setAttribute("channel_list", alc);
 				getServletContext().getRequestDispatcher("/package.jsp").include(request,response);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		
              break;
 		}
 
