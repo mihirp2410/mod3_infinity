@@ -10,6 +10,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+ <script src="js/cost.js"></script>
 
 	<label>Customer name:</label>
 	<%
@@ -19,12 +20,13 @@
 		ArrayList<Channel> alc = (ArrayList<Channel>) newsess.getAttribute("channel_list");
 	%>
 	
-
+		<% int i = 0;%>
 	
        <%
        while (rs.next()){
     	  
        %>
+       		<%i++; %>
        <table>
 		<caption>Package details</caption>
 		<tr id="heading">
@@ -61,23 +63,35 @@
 			   	if(c.getPackage_id()==rs.getInt("PKG_ID")){
 					
 			%>
+			
+			
 			<tr>
-				<td><input type="checkbox" name="select1"
-					value=<%=c.getChannel_name()%>><%=c.getChannel_name()%></td>
+				
+				<td><input type="checkbox" name="select1" 
+					id="<%=c.getChannel_name()%>" value="<%=c.getChannel_charge()%>" onchange="doalert(this)"><%=c.getChannel_name()%></td>
+		
 				<td><%=c.getChannel_charge()%></td>
 				<td><%=c.getPackage_id() %></td>
+				
 			</tr>
+			
+			
 				<%
 			   		}
 				%>
+				
+		
 			 
           <%			
 			}
           %>
+          </table>
+          <p id ="<%=i%>>"> Total Package Cost = </p>
+          
        <%
 		}
        %>
-	
+		
 	</table>
 
 
