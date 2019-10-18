@@ -94,16 +94,28 @@ public  class MainServlet extends HttpServlet implements Servlet{
 			String[] ar=request.getParameterValues("select");
 			String[] arr=request.getParameterValues("select1");
 			String d=request.getParameter("purchasedate");
+			try {
+				PurchasePackage.insertPurchasePackageData(ar,d,(String)sess.getAttribute("uname"));
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			try {
+				PurchaseChannel.insertPurchaseChannelData(arr, d, (String)sess.getAttribute("uname"));
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			for (int i = 0; i < ar.length;i++) {
 				out.println(ar[i]);
 			}
 			for (int i = 0; i < arr.length;i++) {
 				out.println(arr[i]);
 			}
-			getServletContext().setAttribute("sess", sess);
-			sess.setAttribute("ar",ar);
-			sess.setAttribute("arr",arr);
-			sess.setAttribute("date", d);
+			//getServletContext().setAttribute("sess", sess);
+			//sess.setAttribute("ar",ar);
+			//sess.setAttribute("arr",arr);
+			//sess.setAttribute("date", d);
             LoadData.loadpackage(ar);
             LoadData.loadchannel(arr);
             //System.out.println(d);
@@ -113,6 +125,32 @@ public  class MainServlet extends HttpServlet implements Servlet{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		
+		//case "postpaidbillgeneration" :
+			 String user = "Customer";
+			 if(user.contentEquals("Customer")) {
+				 if (((String)sess.getAttribute("choose")).equals("Postpaid")) {
+					 try {
+						ResultSet bill_details_rs = Postbill.printPostpaidBill((String)sess.getAttribute("uname"),(String)sess.getAttribute("stb"));
+						sess.setAttribute("bill_details_rs", bill_details_rs);
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} 
+				 
+				 }
+				 else {
+					 //show future balance
+				 }
+			 }
+			 else {
+				 if(((String)sess.getAttribute("choose")).equals("Postpaid")) {
+					 //ResultSet bill_details_rs= Postbill.generatePostpaidBill((String)sess.getAttribute("uname"),(String)sess.getAttribute("choose"));
+				 }
+				 else {
+					 
+				 }
+			 }
             
 		}
 

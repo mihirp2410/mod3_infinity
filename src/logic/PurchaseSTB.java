@@ -14,7 +14,7 @@ public class PurchaseSTB {
   	  	pst.setInt(1,Integer.parseInt(stb));
   	  	ResultSet rs = pst.executeQuery();
   	  	String insertquery = "insert into PURCHASE_STB values(?,?,?,?,?,?,?,?)";
-  	  	System.out.println("Inside PURCHASE STB DATA");
+  	  	//System.out.println("Inside PURCHASE STB DATA");
   	  	pst = DBConnection.Connection(insertquery);
   	  	//pst.setInt(1,45);
   	  	pst.setString(1,uname);
