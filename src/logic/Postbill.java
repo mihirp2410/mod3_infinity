@@ -1,6 +1,9 @@
 package logic;
 
 import java.util.*;
+
+import utility.DBConnection;
+
 import java.sql.*;
 import java.sql.Date;
 import java.text.DateFormat;
@@ -8,7 +11,80 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 
 public class Postbill {
-	private String c_name;
+	
+	public static ResultSet printPostpaidBill(String uname,String stb) throws SQLException {
+		String query="select * from PURCHASE_PACKAGE where CNAME=?"; 
+  	  	PreparedStatement pst=DBConnection.Connection(query);
+  	  	pst.setString(1,uname);
+  	  	ResultSet purchase_package_rs = pst.executeQuery();
+  	  	String query1="select * from PURCHASE_CHANNEL where CNAME=?"; 
+	  	pst=DBConnection.Connection(query1);
+	  	pst.setString(1,uname);
+	  	ResultSet purchase_channel_rs = pst.executeQuery();
+	  	
+	  	double total_package_cost = 0.0;
+	  	while(purchase_package_rs.next()) {
+	  		String start = purchase_package_rs.getString("PKG_PURCHASE_DATE");
+	  		int start_day = Integer.parseInt(start.substring(3,5));
+	  		int total_days = 30-start_day;
+	  		
+	  		total_package_cost = total_package_cost + (total_days * purchase_package_rs.getInt("PKG_COST")/30);
+	  	}
+	  	while(purchase_channel_rs.next()) {
+	  		String start = purchase_channel_rs.getString("CH_PURCHASE_DATE");
+	  		int start_day = Integer.parseInt(start.substring(3,5));
+	  		int total_days = 30-start_day;
+	  		total_package_cost = total_package_cost + (total_days * Double.parseDouble(purchase_channel_rs.getString("CH_CHARGE"))/30);
+	  	}
+	  	String query2 = "select STB_TYPE from STB_Package where STB_ID=?";
+	  	pst=DBConnection.Connection(query2);
+	  	System.out.println(stb);
+	  	pst.setInt(1,Integer.parseInt(stb));
+	  	ResultSet stb_type_rs = pst.executeQuery();
+	  	stb_type_rs.next();
+	  	String stb_type = stb_type_rs.getString("STB_TYPE");
+	  	String query3 = "insert into BILL_DETAILS values(?,?,?,?,'10/30/2019','11/14/2019')";
+	  	pst=DBConnection.Connection(query3);
+  	  	pst.setString(1,uname);
+  	  	pst.setString(2,stb_type);
+  	  	double tax = (12.5/100) * total_package_cost;
+  	  	pst.setDouble(3,tax);
+  	  	double total_amount = tax + total_package_cost;
+  	  	pst.setDouble(4,total_amount);
+  	  	pst.executeQuery();
+  	  	String query4 = "select * from BILL_DETAILS where CNAME=?";
+  	  	pst = DBConnection.Connection(query4);
+  	  	pst.setString(1,uname);
+  	  	ResultSet bill_details_rs = pst.executeQuery();
+  	  	return bill_details_rs;
+  	  	
+	}
+	
+	public static void generatePostpaidBill() {
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/*private String c_name;
 	private String stb_type;
 	private String package_name;
 	private double package_cost;
@@ -134,6 +210,6 @@ public class Postbill {
 		return tax;
 	}
 	
-	
+	*/
 
 }

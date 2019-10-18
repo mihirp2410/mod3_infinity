@@ -1,5 +1,6 @@
 <%@ page import="java.io.*,java.util.*"%>
 <%@ page import="java.sql.ResultSet" %>
+
 <%@ page import = "javax.servlet.*,java.text.*" %>
 <%@ page import="logic.*" %>
 <%@ page import="servlets.*" %>
@@ -98,8 +99,12 @@
        <%
        }
        Date dNow = new Date();
-       SimpleDateFormat ft = new SimpleDateFormat ("E yyyy.MM.dd 'at' hh:mm:ss a zzz");
-     
+       //SimpleDateFormat ft = new SimpleDateFormat ("E yyyy.MM.dd 'at' hh:mm:ss a zzz");
+       SimpleDateFormat ft = new SimpleDateFormat ("MM/dd/yyyy");
+       
+ 		//DateFormat df = new SimpleDateFormat(MM-dd-yyyy");
+		//java.sql.Date sqlDate = new java.sql.Date(df.parse("02-04-2015").getTime());
+		//out.println(sqlDate);
        %>
 		
 	</table>
