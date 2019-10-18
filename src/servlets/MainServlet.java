@@ -34,7 +34,7 @@ public  class MainServlet extends HttpServlet implements Servlet{
 					sess.setAttribute("uname", uname);
 					sess.setAttribute("pwd", pwd);	
 					getServletContext().getRequestDispatcher("/1stpage.jsp").include(request,response);
-					LoadData.loadstb(uname);
+					LoadData.loaduname(uname);
 					
 				break;
 		case "bill":
@@ -48,14 +48,21 @@ public  class MainServlet extends HttpServlet implements Servlet{
 				sess.setAttribute("rs", rs);
 				getServletContext().getRequestDispatcher("/stbfile.jsp").include(request,response);
 				LoadData.billing_type(choose);
-
+				
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			break;
 		case "package":
-			     
+			
+			sess.setAttribute("stb", request.getParameter("stb"));
+			try {
+				PurchaseSTB.insertPurchaseSTBData(request.getParameter("stb"),(String)sess.getAttribute("uname"));
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			try {
 				
 				ResultSet rst=Package_type.getPackage();
@@ -72,7 +79,7 @@ public  class MainServlet extends HttpServlet implements Servlet{
 				System.out.println(stb);
 				ArrayList<Channel> alc = Channel_type.getChannels();
 				sess.setAttribute("channel_list", alc);
-				sess.setAttribute("stb", stb);
+				//sess.setAttribute("stb", stb);
 				
 				getServletContext().getRequestDispatcher("/package.jsp").include(request,response);
 				LoadData.loadstb(stb);
@@ -99,6 +106,7 @@ public  class MainServlet extends HttpServlet implements Servlet{
 			sess.setAttribute("date", d);
             LoadData.loadpackage(ar);
             LoadData.loadchannel(arr);
+            //System.out.println(d);
             try {
 				LoadData.loaddate(d);
 			} catch (ParseException e) {
