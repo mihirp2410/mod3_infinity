@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import logic.*;
 import javax.servlet.Servlet;
@@ -24,6 +25,7 @@ public  class MainServlet extends HttpServlet implements Servlet{
 		response.setContentType("text/html");
 		PrintWriter out=response.getWriter();
 		String action = request.getParameter("operation");
+		Scanner sc=new Scanner(System.in);
 		HttpSession sess = request.getSession();
 		System.out.println(action);
 		switch(action) {
@@ -31,10 +33,16 @@ public  class MainServlet extends HttpServlet implements Servlet{
 					String uname = request.getParameter("uname");
 					String pwd = request.getParameter("pwd");
 					getServletContext().setAttribute("sess", sess);
-					sess.setAttribute("uname", uname);
-					sess.setAttribute("pwd", pwd);	
-					getServletContext().getRequestDispatcher("/1stpage.jsp").include(request,response);
-					LoadData.loaduname(uname);
+				    
+					String s="admin";
+					if (uname.equals(s)) {
+						                   getServletContext().getRequestDispatcher("/customer_charging.jsp").include(request,response);
+					                   }
+					                   else
+					                	   sess.setAttribute("uname", uname);
+										   sess.setAttribute("pwd", pwd);
+					                       getServletContext().getRequestDispatcher("/1stpage.jsp").include(request,response);
+					
 					
 				break;
 		case "bill":
@@ -47,7 +55,7 @@ public  class MainServlet extends HttpServlet implements Servlet{
 				sess.setAttribute("choose",choose);
 				sess.setAttribute("rs", rs);
 				getServletContext().getRequestDispatcher("/stbfile.jsp").include(request,response);
-				LoadData.billing_type(choose);
+				
 				
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -82,7 +90,7 @@ public  class MainServlet extends HttpServlet implements Servlet{
 				//sess.setAttribute("stb", stb);
 				
 				getServletContext().getRequestDispatcher("/package.jsp").include(request,response);
-				LoadData.loadstb(stb);
+				
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -106,27 +114,18 @@ public  class MainServlet extends HttpServlet implements Servlet{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			for (int i = 0; i < ar.length;i++) {
-				out.println(ar[i]);
-			}
-			for (int i = 0; i < arr.length;i++) {
-				out.println(arr[i]);
-			}
+			/*
+			 * for (int i = 0; i < ar.length;i++) { out.println("Packages selected");
+			 * out.println(ar[i]); } for (int i = 0; i < arr.length;i++) {
+			 * out.println("Channels selected"); out.println(arr[i]); }
+			 */
+			out.println("You have successfully purchased your STB and channels");
 			//getServletContext().setAttribute("sess", sess);
 			//sess.setAttribute("ar",ar);
 			//sess.setAttribute("arr",arr);
 			//sess.setAttribute("date", d);
-            LoadData.loadpackage(ar);
-            LoadData.loadchannel(arr);
-            //System.out.println(d);
-            try {
-				LoadData.loaddate(d);
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		
-		//case "postpaidbillgeneration" :
+         
+            //case "postpaidbillgeneration" :
 			 String user = "Customer";
 			 if(user.contentEquals("Customer")) {
 				 if (((String)sess.getAttribute("choose")).equals("Postpaid")) {
@@ -151,10 +150,42 @@ public  class MainServlet extends HttpServlet implements Servlet{
 					 
 				 }
 			 }
-            
+			 
+			break;
+		case "adminoption":
+			
+			String adminopt = request.getParameter("option");
+			if(adminopt.equals("BuySTBforCustomer"))
+		    {   
+				String cname=request.getParameter("cust");	
+                sess.setAttribute("uname", cname);
+		        getServletContext().getRequestDispatcher("/1stpage.jsp").include(request,response);
+
+		        //Postbill pbill = new Postbill();
+		        //pbill.getbill();
+
+		    }
+		    else if(adminopt.equals("GenerateBill"))
+		    {
+		        getServletContext().getRequestDispatcher("/postBillSummary.jsp").include(request,response);
+		        //ResultSet res= Postbill.billSummary();
+		        
+		        //sess.setAttribute("rs", res);
+		        //getServletContext().getRequestDispatcher("/postSummary.jsp").include(request,response);
+		        //ystem.exit(0);
+		    }
+		 
+		break;
+		case "billdetails":
+		    
+               String cname=request.getParameter("cname");
+               getServletContext().setAttribute("sess", sess);
+               sess.setAttribute("uname", cname);
+		       getServletContext().getRequestDispatcher("/postpaidBill.jsp").include(request,response);
+		    
+		    break;
+
 		}
-
-
 	}
 
 

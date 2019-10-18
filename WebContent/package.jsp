@@ -117,7 +117,7 @@
            <input value="$0.00" readonly="readonly" type="text" id="totalamt"/>
        Purchased date: <input name="purchasedate"  value="<%=ft.format(dNow)%>"  /> 
       <input type="hidden" name="operation" value="packageselection">
-		<button type="submit"  >submit</button>
+		<button type="submit"  formaction="thankyou.html">submit</button>
      
     </form> 
 </body>

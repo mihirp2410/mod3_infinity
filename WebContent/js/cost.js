@@ -33,3 +33,6 @@ function totalamt(){
 	  document.getElementById("totalamt").value = "$" + total.toFixed(2);
 	  
 }
+function cust(){
+	
+}
