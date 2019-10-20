@@ -18,7 +18,7 @@ ResultSet rs = pst.executeQuery();
 <%
 while(rs.next()){
 %>
-<form action = "MainServlet" method="get"> 
+<form action = "MainServlet" method="post"> 
 <table>
 
 <tr id="heading">

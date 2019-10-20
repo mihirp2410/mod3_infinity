@@ -7,7 +7,7 @@
 <body>
 
 <div class="container">
-<form action = "MainServlet" method="get">
+<form action = "MainServlet" method="post">
 <h2>Choose payment type to view the options</h2><br><br>
 <input type="hidden" name="operation" value="adminoption">
 <label>If you want to purchase for your customer write customer name here:</label>

@@ -14,7 +14,7 @@
 <link rel="stylesheet" type="text/css" href="css/Style.css"/>
 <title>Insert title here</title>
 </head>
-<form action = "MainServlet" method="get">
+<form action = "MainServlet" method="post">
 <body>
  <script src="js/cost.js"></script>
 

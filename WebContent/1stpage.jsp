@@ -9,7 +9,7 @@
 </head>
 <body>
 <div class="container">
- 	<form action = "MainServlet" method="get">
+ 	<form action = "MainServlet" method="post">
      <h2>Chose payment type to view the options</h2><br><br>
       <input type="hidden" name="operation" value="bill">
      <input type="submit" name = "billing" value = "Postpaid">

@@ -24,7 +24,8 @@
 <label>Username:</label>
 <input type ="text" name ="uname" placeholder="Enter Username" required><br><br>
 <label>Password:</label>
-<input type ="password" name="pwd" placeholder="Enter Password" required><br><br><br><br>
+<input type ="password" name="pwd" placeholder="Enter Password" required><br><br>
+Incorrect Password!<br>
 <input type = "hidden" name="operation" value="login">
 <button input type="submit"> LOGIN</button>
 

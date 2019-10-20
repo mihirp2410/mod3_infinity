@@ -10,7 +10,7 @@
 <title>second page</title>
 </head>
 <body>
-	<form name="frm1" action="MainServlet" method="get">
+	<form name="frm1" action="MainServlet" method="post">
 		<h1>Select your STB</h1>
 		<%HttpSession newsess = (HttpSession) getServletContext().getAttribute("sess");
 

@@ -21,7 +21,7 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/MainServlet")
 public  class MainServlet extends HttpServlet implements Servlet{
 
-	protected  void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected  void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
 		PrintWriter out=response.getWriter();
 		String action = request.getParameter("operation");
@@ -32,9 +32,39 @@ public  class MainServlet extends HttpServlet implements Servlet{
 		case "login" :
 					String uname = request.getParameter("uname");
 					String pwd = request.getParameter("pwd");
-					getServletContext().setAttribute("sess", sess);
-				    
-					String s="admin";
+					ResultSet login_resultset;
+					try {
+						login_resultset = LoginValidation.getCredentials(uname, pwd);
+						System.out.println("got the resultset");
+						login_resultset.next();
+						if (uname.equalsIgnoreCase(login_resultset.getString("uname"))) {
+							if(pwd.equals(login_resultset.getString("password"))) {
+								if(pwd.equals("admin")) {
+									sess.setAttribute("uname", uname);
+									sess.setAttribute("pwd",pwd);
+									getServletContext().getRequestDispatcher("/customer_charging.jsp").include(request,response);
+								}
+								else {
+									sess.setAttribute("uname", uname);
+									sess.setAttribute("pwd",pwd);
+									getServletContext().getRequestDispatcher("/1stpage.jsp").include(request,response);
+								}
+							}
+							else {
+								getServletContext().getRequestDispatcher("/loginfailurepassword.jsp").include(request,response);
+							}														
+						}
+						else {
+							getServletContext().getRequestDispatcher("/loginfailureusername.jsp").include(request,response);
+						}
+					} catch (SQLException e2) {
+						// TODO Auto-generated catch block
+						//e2.printStackTrace();
+						getServletContext().getRequestDispatcher("/loginfailureusername.jsp").include(request,response);
+					}
+					
+					
+					/*String s="admin";
 					if (uname.equals(s)) {
 						 getServletContext().getRequestDispatcher("/customer_charging.jsp").include(request,response);
 					}
@@ -43,7 +73,7 @@ public  class MainServlet extends HttpServlet implements Servlet{
 						sess.setAttribute("pwd", pwd);
 						getServletContext().getRequestDispatcher("/1stpage.jsp").include(request,response);
 					}
-					
+					*/
 				break;
 		case "bill":
 			String choose=request.getParameter("billing");
@@ -119,7 +149,7 @@ public  class MainServlet extends HttpServlet implements Servlet{
 			 * out.println(ar[i]); } for (int i = 0; i < arr.length;i++) {
 			 * out.println("Channels selected"); out.println(arr[i]); }
 			 */
-			out.println("You have successfully purchased your STB and channels");
+			
 			//getServletContext().setAttribute("sess", sess);
 			//sess.setAttribute("ar",ar);
 			//sess.setAttribute("arr",arr);
@@ -150,7 +180,7 @@ public  class MainServlet extends HttpServlet implements Servlet{
 					 
 				 }
 			 }
-			 
+			 out.println("You have successfully purchased your STB and channels");
 			break;
 		case "adminoption":
 			
