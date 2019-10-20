@@ -42,7 +42,7 @@ while(rs.next()){
     <br>
     <br>
   <!--  <input type="hidden" name="operation" value="Discrepancy"> -->
-    <button type="submit" formaction=Login.html>Submit</button>
+    <button type="submit" formaction=Login.jsp>Submit</button>
 </form>
 </body>
 </html>

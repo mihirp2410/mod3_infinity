@@ -36,13 +36,13 @@ public  class MainServlet extends HttpServlet implements Servlet{
 				    
 					String s="admin";
 					if (uname.equals(s)) {
-						                   getServletContext().getRequestDispatcher("/customer_charging.jsp").include(request,response);
-					                   }
-					                   else
-					                	   sess.setAttribute("uname", uname);
-										   sess.setAttribute("pwd", pwd);
-					                       getServletContext().getRequestDispatcher("/1stpage.jsp").include(request,response);
-					
+						 getServletContext().getRequestDispatcher("/customer_charging.jsp").include(request,response);
+					}
+					else {
+					    sess.setAttribute("uname", uname);
+						sess.setAttribute("pwd", pwd);
+						getServletContext().getRequestDispatcher("/1stpage.jsp").include(request,response);
+					}
 					
 				break;
 		case "bill":
