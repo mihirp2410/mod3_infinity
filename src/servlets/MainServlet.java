@@ -214,10 +214,24 @@ public  class MainServlet extends HttpServlet implements Servlet{
 		       getServletContext().getRequestDispatcher("/postpaidBill.jsp").include(request,response);
 		    
 		    break;
+		    
+		case "resetpassword": 
+			
+			String user_name= request.getParameter("uname");
+			String new_password = request.getParameter("new_password");
+			try {
+				ResetPassword.setNewPassword(user_name, new_password);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+			
+			
 
 		}
 	}
-
 
 }
  

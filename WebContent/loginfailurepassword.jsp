@@ -26,8 +26,11 @@
 <label>Password:</label>
 <input type ="password" name="pwd" placeholder="Enter Password" required><br><br>
 Incorrect Password!<br>
+
 <input type = "hidden" name="operation" value="login">
 <button input type="submit"> LOGIN</button>
+
+<input type="reset" value="Reset"><br><br>
 
 </form>
 </div>
